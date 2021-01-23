@@ -1,6 +1,6 @@
-jsPlumb.ready(function () {
+jsPlumbBrowserUI.ready(function () {
 
-    var j = window.j = jsPlumb.newInstance({container:canvas, connector:"StateMachine", endpoint:["Dot", {radius:3}], anchor:"Center"});
+    var j = window.j = jsPlumbBrowserUI.newInstance({container:canvas, connector:"StateMachine", endpoint:["Dot", {radius:3}], anchor:"Center"});
 
     j.bind("connection", function(p) {
         p.connection.bind("click", function() {
@@ -83,7 +83,7 @@ jsPlumb.ready(function () {
         droppable:false,
         endpoint:["Dot", { radius:3 }]
     });
-    j.addToGroup("five", [c5_1, c5_2]);
+    j.addToGroup("five", c5_1, c5_2);
 
     j.addGroup({
         el:container6,
@@ -91,7 +91,7 @@ jsPlumb.ready(function () {
         proxied:false,
         endpoint:["Dot", { radius:3 }]
     });
-    j.addToGroup("six", [c6_1, c6_2]);
+    j.addToGroup("six", c6_1, c6_2);
 
     j.addGroup({
         el:container7,
@@ -99,7 +99,7 @@ jsPlumb.ready(function () {
         ghost:true,
         endpoint:["Dot", { radius:3 }]
     });
-    j.addToGroup("seven", [c7_1, c7_2]);
+    j.addToGroup("seven", c7_1, c7_2);
 
     // the independent element that demonstrates the fact that it can be dropped onto a group
     j.manage(document.getElementById("standalone"));
@@ -127,7 +127,5 @@ jsPlumb.ready(function () {
         j[collapsed ? "removeClass" : "addClass"](this.parentNode, "collapsed");
         j[collapsed ? "expandGroup" : "collapseGroup"](g);
     });
-
-  //  jsPlumb.fire("jsPlumbDemoLoaded", j);
 
 });
