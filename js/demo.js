@@ -1,6 +1,11 @@
 jsPlumbBrowserUI.ready(function () {
 
-    var j = window.j = jsPlumbBrowserUI.newInstance({container:canvas, connector:"StateMachine", endpoint:["Dot", {radius:3}], anchor:"Center"});
+    var j = window.j = jsPlumbBrowserUI.newInstance({
+        container:canvas,
+        connector:"StateMachine",
+        endpoint:{type:"Dot", options:{radius:3}},
+        anchor:"Center"
+    });
 
     j.bind("connection", function(p) {
         p.connection.bind("click", function() {
@@ -53,7 +58,7 @@ jsPlumbBrowserUI.ready(function () {
         el:container2,
         id:"two",
         dropOverride:true,
-        endpoint:["Dot", { radius:3 }]
+        endpoint:{type:"Dot", options:{ radius:3 }}
     });  //(the default is to revert)
     j.addToGroup("two", c2_1);
     j.addToGroup("two", c2_2);
@@ -62,7 +67,7 @@ jsPlumbBrowserUI.ready(function () {
         el:container3,
         id:"three",
         revert:false,
-        endpoint:["Dot", { radius:3 }]
+        endpoint:{type:"Dot", options:{ radius:3 }}
     });
     j.addToGroup("three", c3_1);
     j.addToGroup("three", c3_2);
@@ -71,7 +76,7 @@ jsPlumbBrowserUI.ready(function () {
         el:container4,
         id:"four",
         prune:true,
-        endpoint:["Dot", { radius:3 }]
+        endpoint:{type:"Dot", options:{ radius:3 }}
     });
     j.addToGroup("four", c4_1);
     j.addToGroup("four", c4_2);
@@ -81,7 +86,7 @@ jsPlumbBrowserUI.ready(function () {
         id:"five",
         orphan:true,
         droppable:false,
-        endpoint:["Dot", { radius:3 }]
+        endpoint:{type:"Dot", options:{ radius:3 }}
     });
     j.addToGroup("five", c5_1, c5_2);
 
@@ -89,7 +94,7 @@ jsPlumbBrowserUI.ready(function () {
         el:container6,
         id:"six",
         proxied:false,
-        endpoint:["Dot", { radius:3 }]
+        endpoint:{type:"Dot", options:{ radius:3 }}
     });
     j.addToGroup("six", c6_1, c6_2);
 
@@ -97,7 +102,7 @@ jsPlumbBrowserUI.ready(function () {
         el:container7,
         id:"seven",
         ghost:true,
-        endpoint:["Dot", { radius:3 }]
+        endpoint:{type:"Dot", options:{ radius:3 }}
     });
     j.addToGroup("seven", c7_1, c7_2);
 
