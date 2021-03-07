@@ -30,6 +30,7 @@
     background-color: WhiteSmoke;
     font-size: 12px;
     cursor:move;
+    outline:1px solid black;
 }
 
 .group-container ul {
@@ -47,8 +48,8 @@
     height:600px;
 }
 
-.group-container.collapsed {
-    height:40px;
+.group-container.jtk-group-collapsed {
+    height:40px !important;
 }
 
 .title {
@@ -58,13 +59,13 @@
     height:30px;
 }
 
-#container1 { left:20px;top:50px; }
-#container2 { left:250px;top:50px; }
-#container3 { left:480px;top:50px; }
-#container4 { left:710px;top:50px; }
-#container5 { left:600px;top:340px; }
-#container6 { left:370px;top:340px; }
-#container7 { left:140px;top:340px; }
+#container1 { left:20px;top:50px; width:500px;height:400px; }
+#container2 { left:30px;top:190px;}
+#container3 { left:580px;top:50px;width:500px;height:400px; }
+#container4 { left:730px;top:120px;width:300px;height:300px; }
+#container5 { left:600px;top:540px; }
+#container6 { left:370px;top:540px; }
+#container7 { left:140px;top:540px; }
 
 .del, .node-collapse {
     position:absolute;
@@ -106,6 +107,8 @@
     stroke-width:1;
 }
 
+
+
 .jtk-group-collapsed .w, .jtk-group-collapsed ul, .jtk-group-collapsed .container, .jtk-group-collapsed .name {
     display:none;
 }
@@ -121,3 +124,4 @@
 .katavorio-ghost-proxy {
     outline:2px solid red;
 }
+

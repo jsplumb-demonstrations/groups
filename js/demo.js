@@ -1,11 +1,8 @@
 jsPlumbBrowserUI.ready(function () {
 
-    var j = window.j = jsPlumbBrowserUI.newInstance({
-        container:canvas,
-        connector:"StateMachine",
-        endpoint:{type:"Dot", options:{radius:3}},
-        anchor:"Center"
-    });
+
+    var canvas = document.getElementById("canvas")
+    var j = jsPlumbBrowserUI.newInstance({container:canvas, connector:"StateMachine", endpoint:{type:"Dot", options:{radius:3}}, anchor:"Center"});
 
     j.bind("connection", function(p) {
         p.connection.bind("click", function() {
@@ -31,6 +28,12 @@ jsPlumbBrowserUI.ready(function () {
     j.bind("group:remove", function(p) {
         console.log("group:remove", p.group.id);
     });
+    j.bind("nestedGroupAdded", function(p) {
+        console.log("nestedGroupAdded", p.child.id + " added to " + p.parent.id);
+    });
+    j.bind("nestedGroupRemoved", function(p) {
+        console.log("nestedGroupRemoved", p.child.id + " removed from " + p.parent.id);
+    });
 
     // connect some before configuring group
     j.connect({source:c1_1, target:c2_1});
@@ -43,7 +46,7 @@ jsPlumbBrowserUI.ready(function () {
 
     // NOTE ordering here. we make one draggable before adding it to the group, and we add the other to the group
     //before making it draggable. they should both be constrained to the group extents.
-    j.addGroup({
+    var group1 = j.addGroup({
         el:container1,
         id:"one",
         constrain:true,
@@ -54,7 +57,7 @@ jsPlumbBrowserUI.ready(function () {
     j.addToGroup("one", c1_1);
     j.addToGroup("one", c1_2);
 
-    j.addGroup({
+    var group2 = j.addGroup({
         el:container2,
         id:"two",
         dropOverride:true,
@@ -62,8 +65,9 @@ jsPlumbBrowserUI.ready(function () {
     });  //(the default is to revert)
     j.addToGroup("two", c2_1);
     j.addToGroup("two", c2_2);
+    group1.addGroup(group2);
 
-    j.addGroup({
+    var group3 = j.addGroup({
         el:container3,
         id:"three",
         revert:false,
@@ -72,7 +76,7 @@ jsPlumbBrowserUI.ready(function () {
     j.addToGroup("three", c3_1);
     j.addToGroup("three", c3_2);
 
-    j.addGroup({
+    var group4 = j.addGroup({
         el:container4,
         id:"four",
         prune:true,
@@ -80,6 +84,8 @@ jsPlumbBrowserUI.ready(function () {
     });
     j.addToGroup("four", c4_1);
     j.addToGroup("four", c4_2);
+    group3.addGroup(group4);
+
 
     j.addGroup({
         el:container5,
@@ -126,11 +132,12 @@ jsPlumbBrowserUI.ready(function () {
 
     // collapse/expand group button
     j.on(canvas, "click", ".node-collapse", function() {
-        var g = this.parentNode.getAttribute("group"),
-            collapsed = j.hasClass(this.parentNode, "collapsed");
+        var g = this.parentNode.getAttribute("group"), collapsed = j.hasClass(this.parentNode, "collapsed");
 
         j[collapsed ? "removeClass" : "addClass"](this.parentNode, "collapsed");
         j[collapsed ? "expandGroup" : "collapseGroup"](g);
     });
+
+    //  jsPlumb.fire("jsPlumbDemoLoaded", j);
 
 });
