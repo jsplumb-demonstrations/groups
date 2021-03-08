@@ -107,10 +107,8 @@
     stroke-width:1;
 }
 
-
-
-.jtk-group-collapsed .w, .jtk-group-collapsed ul, .jtk-group-collapsed .container, .jtk-group-collapsed .name {
-    display:none;
+.jtk-group-collapsed .w, .jtk-group-collapsed ul, .jtk-group-collapsed .container, .jtk-group-collapsed .name,  .jtk-group-collapsed .group-container {
+    display: none;
 }
 
 .jtk-drag-active {
