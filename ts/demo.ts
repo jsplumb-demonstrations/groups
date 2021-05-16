@@ -11,7 +11,8 @@ import {
     EVENT_GROUP_ADDED,
     EVENT_GROUP_REMOVED,
     EVENT_NESTED_GROUP_ADDED,
-    EVENT_NESTED_GROUP_REMOVED
+    EVENT_NESTED_GROUP_REMOVED,
+    BlankEndpoint
 } from "@jsplumb/core"
 
 ready(() => {
@@ -75,8 +76,8 @@ ready(() => {
         el:$("container1"),
         id:"one",
         constrain:true,
-        anchor:"Continuous",
-        endpoint:"Blank",
+        anchor:AnchorLocations.Continuous,
+        endpoint:BlankEndpoint.type,
         droppable:false
     });
     j.addToGroup("one", $("c1_1"));
@@ -86,7 +87,7 @@ ready(() => {
         el:$("container2"),
         id:"two",
         dropOverride:true,
-        endpoint:{type:"Dot", options:{ radius:3 }}
+        endpoint:{type:DotEndpoint.type, options:{ radius:3 }}
     });  //(the default is to revert)
     j.addToGroup("two", $("c2_1"));
     j.addToGroup("two", $("c2_2"));
@@ -96,7 +97,7 @@ ready(() => {
         el:$("container3"),
         id:"three",
         revert:false,
-        endpoint:{type:"Dot", options:{ radius:3 }}
+        endpoint:{type:DotEndpoint.type, options:{ radius:3 }}
     });
     j.addToGroup("three", $("c3_1"));
     j.addToGroup("three", $("c3_2"));
@@ -105,7 +106,7 @@ ready(() => {
         el:$("container4"),
         id:"four",
         prune:true,
-        endpoint:{type:"Dot", options:{ radius:3 }}
+        endpoint:{type:DotEndpoint.type, options:{ radius:3 }}
     });
     j.addToGroup("four", $("c4_1"));
     j.addToGroup("four", $("c4_2"));
@@ -117,7 +118,7 @@ ready(() => {
         id:"five",
         orphan:true,
         droppable:false,
-        endpoint:{type:"Dot", options:{ radius:3 }}
+        endpoint:{type:DotEndpoint.type, options:{ radius:3 }}
     });
     j.addToGroup("five", $("c5_1"), $("c5_2"));
 
@@ -125,7 +126,7 @@ ready(() => {
         el:$("container6"),
         id:"six",
         proxied:false,
-        endpoint:{type:"Dot", options:{ radius:3 }}
+        endpoint:{type:DotEndpoint.type, options:{ radius:3 }}
     });
     j.addToGroup("six", $("c6_1"), $("c6_2"));
 
@@ -133,7 +134,7 @@ ready(() => {
         el:$("container7"),
         id:"seven",
         ghost:true,
-        endpoint:{type:"Dot", options:{ radius:3 }}
+        endpoint:{type:DotEndpoint.type, options:{ radius:3 }}
     });
     j.addToGroup("seven", $("c7_1"), $("c7_2"));
 
@@ -150,13 +151,13 @@ ready(() => {
     j.connect({source:$("c6_2"),target:$("c7_1")});
 
     // delete group button
-    j.on(canvas, "click", ".del", function() {
+    j.on(canvas, EVENT_CLICK, ".del", function() {
         var g = this.parentNode.getAttribute("group");
         j.removeGroup(g, this.getAttribute("delete-all") != null);
     });
 
     // collapse/expand group button
-    j.on(canvas, "click", ".node-collapse", function() {
+    j.on(canvas, EVENT_CLICK, ".node-collapse", function() {
         var g = this.parentNode.getAttribute("group"), collapsed = j.hasClass(this.parentNode, "collapsed");
 
         j[collapsed ? "removeClass" : "addClass"](this.parentNode, "collapsed");

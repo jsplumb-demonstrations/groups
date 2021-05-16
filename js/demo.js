@@ -1,6 +1,5 @@
 jsPlumbBrowserUI.ready(function () {
 
-
     var canvas = document.getElementById("canvas")
     var j = jsPlumbBrowserUI.newInstance({container:canvas, connector:"StateMachine", endpoint:{type:"Dot", options:{radius:3}}, anchor:"Center"});
 
@@ -137,7 +136,5 @@ jsPlumbBrowserUI.ready(function () {
         j[collapsed ? "removeClass" : "addClass"](this.parentNode, "collapsed");
         j[collapsed ? "expandGroup" : "collapseGroup"](g);
     });
-
-    //  jsPlumb.fire("jsPlumbDemoLoaded", j);
 
 });
