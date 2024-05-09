@@ -11,7 +11,7 @@
 
 </script>
 
-<div style="width:{vertex.data.w}px;height:{vertex.data.h}px;" data-jtk-target="true">
+<div data-jtk-target="true">
     {vertex.data.name}
     <div class="delete" title="Click to delete" on:click={() => removeNode()}/>
     <div class="connect" data-jtk-source="true"/>
