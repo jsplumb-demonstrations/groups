@@ -5,6 +5,7 @@
         <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
         <!-- CSS -->
         <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css">
+        <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-controls.css">
         <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-demo-support.css">
         <!-- /CSS -->
         <link rel="stylesheet" href="app.css">
@@ -47,20 +48,14 @@
 
             <!-- this is the main drawing area -->
             <div class="jtk-demo-canvas">
-                <!-- controls -->
-                <div class="controls">
-                    <i class="fa fa-arrows selected-mode" mode="pan" title="Pan Mode"></i>
-                    <i class="fa fa-pencil" mode="select" title="Select Mode"></i>
-                    <i class="fa fa-home" reset title="Zoom To Fit"></i>
-                    <i class="fa fa-undo" undo title="Undo last action"></i>
-                    <i class="fa fa-repeat" redo title="Redo last action"></i>
-                </div>
-                <!-- miniview -->
+
+                <!-- controls-->
+                <div class="controls"></div>
+                <!-- miniview-->
                 <div class="miniview"></div>
             </div>
 
             <div class="jtk-demo-rhs">
-                <a href="../../../index.html" class="p-1">Back to demo list</a>
                 <div class="sidebar node-palette">
                     <div title="Drag Node to canvas" data-type="default" class="sidebar-item">
                         <i class="icon-tablet"></i>Drag Node
@@ -106,8 +101,6 @@
 
         </div>
         <!-- /content -->
-
-
 
         <!-- demo -->
         <script src="node_modules/@jsplumbtoolkit/browser-ui/js/jsplumbtoolkit.browser-ui.umd.js"></script>

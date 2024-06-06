@@ -93,12 +93,12 @@ jsPlumbToolkit.ready(function() {
             ]
         },
         plugins:[
-            {
-                type:jsPlumbToolkit.MiniviewPlugin.type,
-                options:{
-                    container:miniviewElement
-                }
-            },
+            // {
+            //     type:jsPlumbToolkit.MiniviewPlugin.type,
+            //     options:{
+            //         container:miniviewElement
+            //     }
+            // },
             jsPlumbToolkit.LassoPlugin.type
         ],
         dragOptions: {
@@ -151,31 +151,8 @@ jsPlumbToolkit.ready(function() {
 
     // pan mode/select mode
     var controls = document.querySelector(".controls")
-    renderer.on(controls, jsPlumbToolkit.EVENT_TAP, "[mode]", function () {
-        renderer.setMode(this.getAttribute("mode"));
-    });
 
-    //
-    // on home button tap, zoom content to fit. Note here we use `on` to bind an event, as we're just binding to a DOM
-    // element that is not part of our dataset. Compare this with `bindModelEvent` below.
-    //
-    renderer.on(controls, jsPlumbToolkit.EVENT_TAP, "[reset]", function () {
-        toolkit.clearSelection();
-        renderer.zoomToFit();
-    })
-
-    toolkit.bind(jsPlumbToolkit.EVENT_UNDOREDO_UPDATE, function(state) {
-        controls.setAttribute("can-undo", state.undoCount > 0 ? "true" : "false")
-        controls.setAttribute("can-redo", state.redoCount > 0 ? "true" : "false")
-    })
-
-    renderer.on(controls, jsPlumbToolkit.EVENT_TAP, "[undo]",  function() {
-        toolkit.undo()
-    })
-
-    renderer.on(controls, jsPlumbToolkit.EVENT_TAP, "[redo]", function() {
-        toolkit.redo()
-    })
+    new jsPlumbToolkit.ControlsComponent(controls, renderer)
 
     //
     // Here, we are registering elements that we will want to drop onto the workspace and have
