@@ -1,4 +1,5 @@
 @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css";
+@import "../node_modules/@jsplumbtoolkit/browser-ui-angular/css/jsplumbtoolkit-angular.css";
 @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-controls.css";
 
 #jtk-demo-groups {
@@ -20,6 +21,10 @@ jsplumb-miniview {
   position:absolute;
   top:1rem;
   right:1rem;
+}
+
+.jtk-miniview {
+  position: relative;
 }
 
 jsplumb-controls {
