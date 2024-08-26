@@ -4,9 +4,7 @@
   <!-- main drawing area -->
   <div class="jtk-demo-canvas">
 
-    <jsplumb-surface surfaceId="surface"
-                     toolkitId="toolkitId"
-                     [view]="view"
+    <jsplumb-surface [view]="view"
                      [renderParams]="renderParams"
                      [toolkitParams]="toolkitParams"
     >
@@ -16,17 +14,16 @@
     <!--
         A helper component that ships in the Toolkit since 6.2.0. Provides undo/redo, zoom to fit, etc.
     -->
-    <jsplumb-controls surfaceId="surface"></jsplumb-controls>
+    <jsplumb-controls></jsplumb-controls>
 
 
     <!-- miniview -->
-    <jsplumb-miniview surfaceId="surface"></jsplumb-miniview>
+    <jsplumb-miniview></jsplumb-miniview>
   </div>
   <div class="jtk-demo-rhs">
     <!-- the node palette -->
     <div class="sidebar node-palette" jsplumb-surface-drop
          selector="div"
-         surfaceId="surface"
          [dataGenerator]="dataGenerator">
       <div title="Drag Node to canvas" data-node-type="node" class="sidebar-item">
         <i class="icon-tablet"></i>Drag Node
