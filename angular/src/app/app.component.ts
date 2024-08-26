@@ -9,7 +9,7 @@ LassoPlugin, EVENT_CANVAS_CLICK,
 StateMachineConnector, ArrowOverlay, ForceDirectedLayout
 } from "@jsplumbtoolkit/browser-ui"
 
-import {BrowserUIAngular, jsPlumbSurfaceComponent} from "@jsplumbtoolkit/browser-ui-angular"
+import {BrowserUIAngular, SurfaceComponent} from "@jsplumbtoolkit/browser-ui-angular"
 import {GroupComponent} from "./group.component"
 
 @Component({
@@ -18,7 +18,7 @@ import {GroupComponent} from "./group.component"
 })
 export class AppComponent implements AfterViewInit {
 
-  @ViewChild(jsPlumbSurfaceComponent) surfaceComponent!:jsPlumbSurfaceComponent;
+  @ViewChild(SurfaceComponent) surfaceComponent!:SurfaceComponent;
 
   toolkit!:BrowserUIAngular
   surface!:Surface
