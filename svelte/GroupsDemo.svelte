@@ -1,50 +1,51 @@
 <script>
     import {
         ForceDirectedLayout,
-            AbsoluteLayout,
-            StateMachineConnector,
+		AbsoluteLayout,
+		QuadraticBezierConnector,
         newInstance,
         AnchorLocations,
         ArrowOverlay,
         BlankEndpoint,
-        SurfaceDropManager,
-        MiniviewPlugin,
-            LassoPlugin,
-            DEFAULT, EVENT_TAP,
+		LassoPlugin,
+		DEFAULT, EVENT_TAP,
         EVENT_CLICK, EVENT_CANVAS_CLICK,
         EVENT_SURFACE_MODE_CHANGED,
-        EVENT_GROUP_ADDED,
-            ControlsComponent
+        EVENT_GROUP_ADDED
 
     } from '@jsplumbtoolkit/browser-ui'
 
-    import { SurfaceComponent } from "@jsplumbtoolkit/browser-ui-svelte"
+    import {
+		SurfaceProvider,
+		SurfaceComponent,
+		MiniviewComponent,
+		ControlsComponent,
+		PaletteComponent
+	} from "@jsplumbtoolkit/browser-ui-svelte"
 
     import NodeComponent from './NodeComponent.svelte'
     import GroupComponent from './GroupComponent.svelte'
 	import HeadlessGroupComponent from './HeadlessGroupComponent.svelte'
 
-    import {onMount} from "svelte"
-
     let surfaceComponent
 
     const toolkit = newInstance({
-        groupFactory:(type, data, callback) => {
+        groupFactory: (type, data, callback) => {
             data.title = "Group " + (toolkit.getGroupCount() + 1)
             callback(data)
             return true
         },
-        nodeFactory:(type, data, callback) => {
+        nodeFactory: (type, data, callback) => {
             data.name = (toolkit.getNodeCount() + 1)
             callback(data)
             return true
         }
     })
 
-    const viewParams = {
+    const view = {
         nodes: {
             [DEFAULT]: {
-                component:NodeComponent,
+                component: NodeComponent,
                 events: {
                     [EVENT_TAP]: (params) => {
                         toolkit.toggleSelection(params.node);
@@ -52,35 +53,35 @@
                 }
             }
         },
-        groups:{
-            [DEFAULT]:{
-                component:GroupComponent,
-                endpoint:BlankEndpoint.type,
-                anchor:AnchorLocations.Continuous,
-                revert:false,
-                orphan:true,
-                constrain:false,
-                autoSize:true,
-                layout:{
-                    type:AbsoluteLayout.type
+        groups: {
+            [DEFAULT]: {
+                component: GroupComponent,
+                endpoint: BlankEndpoint.type,
+                anchor: AnchorLocations.Continuous,
+                revert: false,
+                orphan: true,
+                constrain: false,
+                autoSize: true,
+                layout: {
+                    type: AbsoluteLayout.type
                 },
-                padding:10
+                padding: 10
             },
-            constrained:{
-                parent:DEFAULT,
-                constrain:true
+            constrained: {
+                parent: DEFAULT,
+                constrain: true
             },
-            elastic:{
-                component:HeadlessGroupComponent,
-                elastic:true,
-                minSize:{ w:250, h:250 },
-                padding:10
+            elastic: {
+                component: HeadlessGroupComponent,
+                elastic: true,
+                minSize: {w: 250, h: 250},
+                padding: 10
             }
         },
-        edges:{
-            [DEFAULT]:{
-                events:{
-                    [EVENT_CLICK]:function() {
+        edges: {
+            [DEFAULT]: {
+                events: {
+                    [EVENT_CLICK]: function () {
                         console.log(arguments)
                     }
                 }
@@ -88,7 +89,7 @@
         }
     };
 
-    const renderParams = {
+    const renderOptions = {
         layout: {
             type: ForceDirectedLayout.type,
             options: {
@@ -96,94 +97,66 @@
             }
         },
         defaults: {
-            anchor:AnchorLocations.Continuous,
-            endpoint: BlankEndpoint.type,
-            connector: { type:StateMachineConnector.type, options:{ cssClass: "connectorClass", hoverClass: "connectorHoverClass" } },
-            paintStyle: { strokeWidth: 1, stroke: '#89bcde' },
-            hoverPaintStyle: { stroke: "orange" },
+            connector: {
+				type: QuadraticBezierConnector.type,
+				options: {cssClass: "connectorClass", hoverClass: "connectorHoverClass"}
+			},
+            paintStyle: {strokeWidth: 1, stroke: '#89bcde'},
+            hoverPaintStyle: {stroke: "orange"},
             connectionOverlays: [
-                { type:ArrowOverlay.type, options:{ fill: "#09098e", width: 10, length: 10, location: 1 } }
+                {type: ArrowOverlay.type, options: {fill: "#09098e", width: 10, length: 10, location: 1}}
             ]
         },
-        plugins:[
+        plugins: [
             LassoPlugin.type
         ],
         dragOptions: {
             filter: ".delete *, .group-connect *, .delete"
         },
-        magnetize:{
-            afterDrag:true,
-            afterGroupExpand:true
+        magnetize: {
+            afterDrag: true,
+            afterGroupExpand: true
         },
         events: {
-            [EVENT_CANVAS_CLICK]: (e) => {
-                toolkit.clearSelection()
+            [EVENT_CANVAS_CLICK]: (surface) => {
+				surface.toolkitInstance.clearSelection()
             },
             [EVENT_SURFACE_MODE_CHANGED]: (mode) => {
                 renderer.removeClass(document.querySelector("[mode]"), "selected-mode");
                 renderer.addClass(document.querySelector("[mode='" + mode + "']"), "selected-mode");
             },
-            [EVENT_GROUP_ADDED]:(group) => {
+            [EVENT_GROUP_ADDED]: (group) => {
                 console.log("New group " + group.id + " added")
             }
         },
-        consumeRightClick:false,
-        zoomToFit:true
+        consumeRightClick: false,
+        zoomToFit: true
     }
-
-    onMount(async() => {
-
-        const surface = surfaceComponent.getSurface()
-
-        // add a miniview
-        surface.addPlugin({
-            type:MiniviewPlugin.type,
-            options:{
-                container:document.querySelector(".miniview")
-            }
-        })
-
-        // add the controls component, a helper component we ship
-        // for people to use as inspiration for their own
-        new ControlsComponent(document.querySelector(".controls"), surface)
-
-        // set up drag/drop of new nodes/groups
-        new SurfaceDropManager({
-            surface,
-            source:document.querySelector(".node-palette"),
-            selector:"[data-type]",
-            dataGenerator:(e) => {
-                return {
-                    type:e.getAttribute("data-type")
-                };
-            }
-        })
-
-        // load initial dataset
-        toolkit.load({url:"./dataset.json"})
-    })
-
-
 
 
 </script>
 
 <div class="jtk-demo-main">
 
+<SurfaceProvider>
     <!-- this is the main drawing area -->
     <div class="jtk-demo-canvas">
 
-        <SurfaceComponent viewParams={viewParams} renderParams={renderParams} toolkit={toolkit} id="surface" bind:this={surfaceComponent}/>
+        <SurfaceComponent viewOptions={view}
+                          renderOptions={renderOptions}
+                          toolkit={toolkit}
+                          bind:this={surfaceComponent}
+                        url="./dataset.json">
 
-      <!-- controls -->
-        <div class="controls"></div>
-      <!-- miniview -->
-        <div class="miniview"></div>
+            <MiniviewComponent/>
+            <ControlsComponent/>
+
+        </SurfaceComponent>
     </div>
 
     <div class="jtk-demo-rhs">
 
-        <div class="sidebar node-palette">
+        <PaletteComponent class="sidebar node-palette">
             <div title="Drag Node to canvas" data-type="default" class="sidebar-item">
                 <i class="icon-tablet"></i>Drag Node
             </div>
@@ -194,10 +167,12 @@
 				 class="sidebar-item">
 				<i class="icon-tablet"></i>Drag Elastic Group
 			</div>
-        </div>
+        </PaletteComponent>
+
+
         <div class="description">
 			<div class="h3">Nested Groups</div>
-			<p>The Toolkit has comprehensive support for groups, which can be nested to an arbitrary level. When groups are collapsed any edges to/from
+			<p>JsPlumb has comprehensive support for groups, which can be nested to an arbitrary level. When groups are collapsed any edges to/from
 				children of the group are relocated to the group. You can collapse and expand groups in this demo with the `-` and `+` buttons.
 			</p>
 			<p>Group 1 in this demo has `autoSize` switched on, and will resize when new nodes are dropped into the group, or nodes are deleted or dragged
@@ -224,5 +199,5 @@
     </div>
 
 
-
+</SurfaceProvider>
 </div>
