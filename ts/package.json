@@ -1,12 +1,12 @@
 {
     "name": "groups-ts",
-    "version": "6.72.0",
+    "version": "6.80.0",
     "scripts": {
         "build": "set -e;./node_modules/.bin/tsc;./node_modules/.bin/rollup -c rollup.config.js",
         "serve": "./node_modules/.bin/http-server ."
     },
     "dependencies": {
-        "@jsplumbtoolkit/browser-ui": "^6.72.0"
+        "@jsplumbtoolkit/browser-ui": "^6.80.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.4.4",
