@@ -1,6 +1,6 @@
 {
     "name": "groups-es5",
-    "version": "6.80.0",
+    "version": "6.81.0",
     "description": "",
     "main": "demo.js",
     "scripts": {
@@ -17,7 +17,7 @@
     },
     "homepage": "https://github.com/jsplumb-demonstrations/groups#readme",
     "dependencies": {
-        "@jsplumbtoolkit/browser-ui": "^6.80.0"
+        "@jsplumbtoolkit/browser-ui": "^6.81.0"
     },
     "devDependencies": {
         "http-server": "^14.1.1"
