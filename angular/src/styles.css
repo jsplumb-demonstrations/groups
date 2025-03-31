@@ -1,6 +1,5 @@
 @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css";
 @import "../node_modules/@jsplumbtoolkit/browser-ui-angular/css/jsplumbtoolkit-angular.css";
-@import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-controls.css";
 
 #jtk-demo-groups {
   display:flex;
