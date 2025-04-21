@@ -113,10 +113,7 @@ export class AppComponent implements AfterViewInit {
         absoluteBacked: true
       }
     },
-    // FOR people coming from 2.x versions of the Toolkit, this key used to be `jsPlumb`.
     defaults: {
-      anchor:AnchorLocations.Continuous,
-      endpoint: BlankEndpoint.type,
       connector: { type:StateMachineConnector.type, options:{ cssClass: "connectorClass", hoverClass: "connectorHoverClass" } },
       paintStyle: { strokeWidth: 1, stroke: '#89bcde' },
       hoverPaintStyle: { stroke: "orange" },
