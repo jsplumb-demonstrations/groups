@@ -1,6 +1,6 @@
 {
     "name": "groups-ts",
-    "version": "7.3.1",
+    "version": "7.3.3",
     "scripts": {
         "build-es6": "./node_modules/.bin/esbuild demo.ts --target=es2016 --bundle --format=iife --outfile=bundle.js",
         "build-es6-min": "./node_modules/.bin/esbuild demo.ts --target=es2016 --bundle --minify --format=iife --outfile=bundle-min.js",
@@ -12,7 +12,7 @@
         "serve": "./node_modules/.bin/http-server ."
     },
     "dependencies": {
-        "@jsplumbtoolkit/browser-ui": "^7.3.1"
+        "@jsplumbtoolkit/browser-ui": "^7.3.3"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
